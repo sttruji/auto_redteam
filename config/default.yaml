@@ -1,0 +1,25 @@
+victim:
+  adapter: huggingface
+  model_id: meta-llama/Llama-2-7b-chat-hf
+  device: cuda
+
+attacker:
+  model_id: mistralai/Mistral-7B-v0.1
+  device: cuda
+  k: 10
+
+evaluator:
+  type: default
+  weights:
+    eval: 1.0
+    affirmative_likelihood: 0.5
+    refusal_penalty: 0.3
+
+rl:
+  episodes: 500
+  seed: 42
+  log_every: 10
+  checkpoint_dir: checkpoints
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05

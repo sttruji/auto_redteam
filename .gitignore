@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Environment
+.env
+.env.*
+
+# Models & checkpoints (can be large)
+checkpoints/
+*.bin
+*.safetensors
+*.gguf
+
+# Experiment artifacts
+runs/
+logs/
+outputs/
+wandb/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pytest / mypy / ruff cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
