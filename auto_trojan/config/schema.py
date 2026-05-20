@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pydantic import BaseModel, Field
 
 
@@ -11,6 +13,20 @@ class AttackerConfig(BaseModel):
     model_id: str
     device: str = "cuda"
     k: int = Field(default=10, ge=1)
+    # LoRA / QLoRA
+    lora_rank: int = 16
+    lora_alpha: int = 32
+    lora_dropout: float = 0.05
+    target_modules: list[str] = Field(default_factory=lambda: ["q_proj", "v_proj"])
+    use_4bit: bool = False
+    # Generation
+    max_new_tokens: int = 256
+    temperature: float = 1.0
+    top_p: float = 0.9
+    # Training
+    learning_rate: float = 1e-4
+    baseline_momentum: float = 0.9
+    checkpoint_every: int = 10
 
 
 class RewardWeightsConfig(BaseModel):
@@ -29,9 +45,6 @@ class RLConfig(BaseModel):
     seed: int = 42
     log_every: int = 10
     checkpoint_dir: str = "checkpoints"
-    lora_rank: int = 16
-    lora_alpha: int = 32
-    lora_dropout: float = 0.05
 
 
 class ExperimentConfig(BaseModel):

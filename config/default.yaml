@@ -7,6 +7,20 @@ attacker:
   model_id: mistralai/Mistral-7B-v0.1
   device: cuda
   k: 10
+  # LoRA
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: [q_proj, v_proj]
+  use_4bit: false        # set true for QLoRA on limited VRAM
+  # Generation
+  max_new_tokens: 256
+  temperature: 1.0
+  top_p: 0.9
+  # Training
+  learning_rate: 1e-4
+  baseline_momentum: 0.9
+  checkpoint_every: 10
 
 evaluator:
   type: default
@@ -20,6 +34,3 @@ rl:
   seed: 42
   log_every: 10
   checkpoint_dir: checkpoints
-  lora_rank: 16
-  lora_alpha: 32
-  lora_dropout: 0.05
