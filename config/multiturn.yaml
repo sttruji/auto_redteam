@@ -1,0 +1,39 @@
+victim:
+  adapter: huggingface
+  model_id: meta-llama/Llama-2-7b-chat-hf
+  device: cuda
+
+attacker:
+  model_id: mistralai/Mistral-7B-v0.1
+  device: cuda
+  k: 1                   # single rollout per seed in multi-turn mode
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: [q_proj, v_proj]
+  use_4bit: false
+  max_new_tokens: 256
+  temperature: 1.0
+  top_p: 0.9
+  learning_rate: 1e-4
+  checkpoint_every: 10
+  # Multi-turn specific
+  gamma: 0.95
+  value_head_dropout: 0.1
+  value_loss_coeff: 0.5
+  value_lr: 1e-4
+  max_context_tokens: 2048
+
+evaluator:
+  type: default
+  weights:
+    eval: 1.0
+    affirmative_likelihood: 0.5
+    refusal_penalty: 0.3
+
+rl:
+  episodes: 500
+  seed: 42
+  log_every: 10
+  checkpoint_dir: checkpoints
+  max_turns: 6

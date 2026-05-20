@@ -47,8 +47,27 @@ class RLConfig(BaseModel):
     checkpoint_dir: str = "checkpoints"
 
 
+class MultiTurnAttackerConfig(AttackerConfig):
+    gamma: float = 0.95
+    value_head_dropout: float = 0.1
+    value_loss_coeff: float = 0.5
+    value_lr: float = 1e-4
+    max_context_tokens: int = 2048
+
+
+class MultiTurnRLConfig(RLConfig):
+    max_turns: int = 6
+
+
 class ExperimentConfig(BaseModel):
     victim: VictimConfig
     attacker: AttackerConfig
     evaluator: EvaluatorConfig = Field(default_factory=EvaluatorConfig)
     rl: RLConfig = Field(default_factory=RLConfig)
+
+
+class MultiTurnExperimentConfig(BaseModel):
+    victim: VictimConfig
+    attacker: MultiTurnAttackerConfig
+    evaluator: EvaluatorConfig = Field(default_factory=EvaluatorConfig)
+    rl: MultiTurnRLConfig = Field(default_factory=MultiTurnRLConfig)
