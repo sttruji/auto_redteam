@@ -37,3 +37,6 @@ Thumbs.db
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# Personal notes
+NOTES.md
