@@ -32,4 +32,5 @@ class ValueHead(nn.Module):
             x = hidden_states[:, -1, :]  # last token — causal LM convention
         else:
             x = hidden_states
+        x = x.to(dtype=self.net[1].weight.dtype)  # align with Linear layer dtype (fp16/bf16/fp32)
         return self.net(x).squeeze(-1)
